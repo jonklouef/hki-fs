@@ -1,0 +1,90 @@
+# https://www.websequencediagrams.com/ näyttää kaaviot näillä koodeilla
+
+# harjoitus 0.4
+
+note over selain:
+Selain lähettää pyynnön 
+POST-metodilla palvelimelle.
+end note
+
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+
+note over palvelin
+Palvelin luo POST-metodin mukana lähetetyn 
+merkinnän luetteloon, mutta ei tallenna sitä 
+tietokantaan. Sen jälkeen palvelin pyytää selainta 
+tekemään uuden pyynnön GET-metodilla.
+end note
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+palvelin-->selain: HTML-koodi
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: main.css
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+palvelin-->selain: main.js
+
+note over selain:
+Selain aloittaa js-koodin suorittamisen ja
+koodi pyytää JSON-datan palvelimelta.
+end note
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+palvelin-->selain: [{ content: "new note", date: "2021-0821T16:42:56.293Z" }, ...]
+
+note over selain:
+Selaimen suorittama tapahtumankäsittelijä 
+renderöi muistiinpanot näytölle.
+end note
+
+# harjoitus 0.5
+
+note over selain:
+Selain lähettää pyynnön GET-metodilla palvelimelle.
+end note
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+palvelin-->selain: HTML-koodi
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+palvelin-->selain: main.css
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+palvelin-->selain: spa.js
+
+note over selain:
+Selain aloittaa js-koodin suorittamisen ja
+koodi pyytää JSON-datan palvelimelta.
+end note
+
+selain->palvelin: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
+palvelin-->selain: [{ content: "new note", date: "2021-0821T16:42:56.293Z" }, ...]
+
+note over selain:
+Selain suorittaa tapahtumankäsittelijän,
+joka renderöi muistiinpanot näytölle.
+end note
+
+# harjoitus 0.6
+
+note over selain:
+Selaimen lataamassa JavaScript -koodissa 
+on tapahtumankäsittelijä uuden merkinnän 
+lähettämistä ('save' -painike ruudulla) 
+varten. 
+end note
+
+note over selain:
+Uuden merkinnän lähettämisen jälkeen JavaScript 
+-koodi luo merkinnän, lisää sen listaan ja 
+renderöi listan selaimeen uuden merkinnän kera. 
+Sen jälkeen koodi lähettää uuden muistiinpanon
+JSON- muodossa palvelimelle POST-metodilla.
+end note
+
+
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+
+note over palvelin:
+Palvelin vastaa statuskoodilla, 
+eikä uusia pyyntöjä tehdä.
+end note
+
+palvelin-->selain: Statuskoodi '201 created'
