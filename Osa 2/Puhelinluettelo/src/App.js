@@ -116,7 +116,7 @@ const App = () => {
               setTimeout(() => {
               setNotification([null, "err"])
           }, 4000)
-        } else { // remove 'if' for part 3?
+        } else {
         setNotification([`${error}`, "err"])
         setTimeout(() => {
           setNotification([null, "err"])
